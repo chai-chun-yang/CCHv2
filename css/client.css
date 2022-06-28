@@ -1,0 +1,1952 @@
+:root{
+	--font-family: 'Consolas','Fira Code','Source Code Pro','Lucida Console','Cascadia Code','Ubuntu Mono',monospace, sans-serif;
+	--editor-font-family:  'Consolas','Fira Code','Source Code Pro','Lucida Console','Cascadia Code','Ubuntu Mono',monospace, sans-serif;
+}
+body{
+	transition: background-color 0.3s, color 0.3s;
+	overflow: hidden;
+	margin: 0px;
+	color: var(--major-font-color);
+}
+.HtmlContainer{
+	width: 1000px;
+	height: 658px;
+	overflow: hidden;
+	margin: 0px;
+	user-select:none;
+	font-size: 14px;
+	font-family: var(--font-family);
+	-webkit-app-region: drag;
+	transition: background-color 0.3s, color 0.3s;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	background: var(--major-background-color);
+}
+.NavBar{
+	position: relative;
+	-webkit-app-region: no-drag;
+	width: 80px;
+	display: flex;
+	flex-direction: column;
+}
+.NavBarContent{
+	transition: 0.2s;
+	height: 80px;
+	width:  80px;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+}
+.NavBarContent:hover{
+	background: var(--navbar-hover-color);
+}
+.NavBarContent > div > i{
+	font-size: 23px;
+}
+.NavBarChosen, .InnerContent{
+	background: var(--navbar-chosen-color);
+}
+.NavBarContent > div > div{
+	overflow: hidden;
+	margin-top: 5px;
+	font-size: 14px;
+	max-height: 0px;
+	transition: 0.2s;
+	opacity: 0;
+}
+.NavBarContent:hover > div > div{
+	max-height: 18px;
+	opacity: 1;
+}
+.NavBarChosen > div > div{
+	max-height: 18px;
+	opacity: 1;
+}
+.NavBarCurr{
+	background: var(--current-navbar-color);
+}
+.ToolList{
+	-webkit-app-region: drag;
+	position: relative;
+	height: 30px;
+}
+.ToolListTitle{
+	margin: 8px 12px;
+	font-size: 14px;
+}
+.ToolListMinimize:hover{
+	background: var(--topbar-hover-color);
+}
+.ToolListButton{
+	-webkit-app-region: no-drag;
+	cursor: pointer;
+	transition: 0.2s;
+	width:  45px;
+	height: 30px;
+	font-size: 14px;
+	display: grid;
+	place-items: center;
+}
+.ToolListClose:hover{
+	background: rgb(232, 17, 35);
+	color: white;
+}
+.InnerContent{
+	position: relative;
+}
+.contentWrapper{
+	overflow: hidden;
+	transition: 0.2s;
+	width: 920px;
+	height: 630px;
+	position: absolute;
+	top: 100%;
+	max-height: 0px;
+}
+.contentWrapperChosen{
+	-webkit-app-region: no-drag;
+	top: 0 !important;
+	max-height: 680px;
+}
+.NavBarCurr{
+	transition: 0.2s;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 5px;
+	height: 80px;
+}
+.contentRowInfo{
+	height: 630px;
+	display: flex;
+	flex-direction: row;
+	position: absolute;
+	left: 0;
+	top: 0;
+	transition: 0.2s;
+}
+.contentPage{
+	display: grid;
+	place-items: center;
+	width: 920px;
+	height: 630px;
+	position: relative;
+}
+.MajorTitle{
+	font-size: 24px;
+	margin-bottom: 30px;
+}
+.singleContestTypeSelector{
+	width: 880px;
+	height: 450px;
+	display: flex;
+	flex-direction: row;
+}
+.singleContestTypeDivider{
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+}
+.DividerLine{
+	width: 2px;
+	flex: 1;
+	background: var(--single-divider-line-color);
+}
+.DividerContent{
+	font-size: 18px;
+	padding: 10px;
+}
+.singleContestant, .singleVirtual{
+	flex: 1;
+	display: grid;
+	place-items: center;
+}
+.anglePointer{
+	font-size: 24px;
+	transition: 0.2s;
+}
+.anglePointer > i{
+	transition: 0.1s;
+	transform: scale(0);
+}
+.singleContestant > div:hover > .anglePointer > i{
+	transform: scale(1);
+}
+.singleVirtual > div:hover > .anglePointer > i{
+	transform: scale(1);
+}
+.singleContestant > div > i, .singleVirtual > div > i{
+	transform: scale(1);
+	transition: 0.2s;
+}
+.singleContestant > div:hover > i, .singleVirtual > div:hover > i{
+	padding-bottom: 30px;
+}
+.singleContestant > div, .singleVirtual > div{
+	cursor: pointer;
+}
+.singleContestant > div > i, .singleVirtual > div > i{
+	font-size: 120px;
+	padding-bottom: 20px;
+	transition: 0.2s;
+}
+.singleContestant > div > .remainSinglePart,
+.singleVirtual > div > .remainSinglePart{
+	transition: 0.2s;
+	height: 320px;
+	width: 420px;
+	transform: scale(0.0);
+	max-height: 0px;
+	max-width:  0px;
+	overflow: hidden;
+}
+.singleContestant, .singleVirtual{
+	transition: 0.2s;
+	min-width: 100px;
+}
+.singleContestant.singleTypeChosen, .singleVirtual.singleTypeChosen{
+	min-width: 340px;
+}
+.singleContestant.singleTypeChosen > div, .singleVirtual.singleTypeChosen > div{
+	cursor: auto;
+}
+.singleContestant.singleTypeChosen > div > i,
+.singleVirtual.singleTypeChosen > div > i{
+	transform: scale(0);
+	max-height: 0px;
+	margin-bottom: 0px;
+	padding: 0px;
+	height: 0px;
+}
+.singleContestant.singleTypeChosen > div:hover > i,
+.singleVirtual.singleTypeChosen > div:hover > i{
+	margin-bottom: 0px;
+}
+.singleContestant.singleTypeChosen > div > .remainSinglePart,
+.singleVirtual.singleTypeChosen > div > .remainSinglePart{
+	transform: scale(1.0);
+	max-height: 320px;
+	max-width:  420px;
+}
+.singleUserAvatar{
+	width: 180px;
+	height: 180px;
+	border-radius: 10px;
+	margin: 7px 0px;
+}
+.singleUsernameDisplayer{
+	height: 32px;
+	font-size: 26px;
+	width: 700px;
+	margin-left: 10px;
+	border-bottom: 1px solid var(--single-username-border-bottom-color);
+}
+.singleRatingDisplayer{
+	font-size: 16px;
+	width: 700px;
+	padding: 5px 10px;
+}
+.singleRatingDisplayer > div:last-child{
+	float: right;
+}
+.singleContestTags{
+	padding: 5px 0px;
+	padding-left: 10px;
+	width: 670px;
+}
+.singleContestTag{
+	font-size: 12px;
+	display: inline-block;
+	padding: 4px 6px;
+	border-radius: 4px;
+	margin-right: 10px;
+}
+.singleContestTag > i{
+	margin-right: 8px;
+}
+.singleContestName{
+	padding-left: 10px;
+	height: 18px;
+	width: 670px;
+	font-size: 16px;
+	-webkit-line-clamp: 1;
+	display: -webkit-box;
+	overflow: hidden;
+	-webkit-box-orient: vertical;
+	text-overflow:ellipsis;
+}
+.singleContestProgress{
+	position: relative;
+	height: 40px;
+	margin: 5px 10px;
+	border-radius: 5px;
+}
+.singleContestProgressBarDisplayer{
+	position: relative;
+	border-radius: 3px;
+	width: 100%;
+	height: 18px;
+	background: var(--single-progress-bar-background-color);
+}
+.singleContestProgressRatingChangesDisplayer{
+	font-size: 16px;
+	width: 100%;
+	height: 22px;
+	padding-top: 4px;
+}
+.singleContestProgressRatingChangesDisplayer > span:first-child{
+	float: left;
+}
+.singleContestProgressRatingChangesDisplayer > span:last-child{
+	float: right;
+}
+.singleContestMoreOption{
+	width: 100%;
+	font-size: 16px;
+}
+.singleContestMoreOption>div{
+	display: inline-block;
+}
+.singleContestMoreOption>div:last-child{
+	float: right;
+}
+
+.singleMainDisplayer{
+	height: 370px;
+	width: 900px;
+	margin: 10px;
+	padding: 0px !important;
+	overflow: hidden;
+}
+.singleExtendSelection{
+	z-index: 100;
+	height: 20px;
+	width: 100%;
+	position: relative;
+}
+.singleExtendSelection > div{
+	position: absolute;
+	top: 0px;
+	height: 20px;
+	font-size: 16px;
+}
+.singleHeadBack{
+	width: 300px;
+	cursor: pointer;
+	left: 10px;
+}
+.singleMemoryUsed{
+	left: 0px;
+	width: 100%;
+	font-size: 18px !important;
+	text-align: center;
+}
+.singleMemoryUsed > span{
+	border-bottom: 1px solid var(--single-memory-used-border-bottom-color);
+}
+.singleOpenSmallWindow{
+	cursor: pointer;
+	right: 10px;
+}
+.singleHeadBackProgress {
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    position: fixed;
+    opacity: 0;
+    top: 50px;
+    left: 50px;
+    transition: opacity 0.3s, border 0.6s, width 0.6s, height 0.6s, left 0s, top 0s;
+    transform: translate(-50%, -50%);
+    background: var(--single-long-press-progress-circle-color);
+    border: 15px solid var(--single-long-press-progress-background-color);
+}
+.singleHeadBackProgress.selected{
+	width: 30px;
+    height: 30px;
+	opacity: 1;
+	border: 0 solid var(--single-long-press-progress-background-color);
+}
+.singleHeadBack > span{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+.singleHeadBack > span > i, .singleOpenSmallWindow > i{
+	padding: 3px 5px;
+}
+.blockManager{
+	position: relative;
+	transition: 0.2s;
+	display: inline-flex;
+	border-radius: 10px;
+	flex-direction: column;
+	overflow: hidden;
+}
+.blockManagerTitle{
+	overflow: hidden;
+	width: calc(100% - 20px);
+	height: 18px;
+	font-size: 18px;
+	padding: 6px 10px;
+}
+.singleRankGraphDisplayer{
+	height: 100%;
+	width: calc(40% - 5px);
+}
+.singleProblemDisplayer{
+	height: 100%;
+	width: calc(60% - 5px);
+}
+.folderButton{
+	transition: 0.2s;
+	cursor: pointer;
+	height: 18px;
+	width: 18px;
+	border-radius: 3px;
+	float: right;
+	font-size: 16px;
+	display: grid;
+	place-items: center;
+}
+.blockManagerContent{
+	width: 890px;
+	overflow: hidden;
+	flex: 1;
+	display: flex;
+	flex-direction: row;
+}
+.blockManagerLeft{
+	overflow: hidden;
+	width: 40%;
+	height: 100%;
+	display: inline-block;
+}
+.blockManagerRight{
+	overflow: hidden;
+	width: 60%;
+	height: 100%;
+	display: inline-block;
+}
+.singleParticipateTypeContainer,
+.singleProblemlistTypeContainer{
+	width: 100%;
+	height: 50px;
+	display: flex;
+	flex-direction: row;
+}
+.singleParticipateTypeContainer > div,
+.singleProblemlistTypeContainer > div{
+	flex: 1;
+	display: grid;
+	place-items: center;
+	position: relative;
+}
+.selectButton{
+	cursor: pointer;
+	transition: 0.2s;
+	border-radius: 5px;
+	width: calc(100% - 40px);
+	height: 30px;
+	display: grid;
+	place-items: center;
+	font-size: 16px;
+	background: var(--single-switch-buttons-background-color);
+}
+.selectButton:hover{
+    background: var(--single-switch-buttons-hover-background-color);
+}
+.selectButton.selected{
+    background: var(--single-switch-buttons-selected-background-color);
+}
+.singleRankInfoContainer{
+	flex: 1;
+	height: 100%;
+	display: grid;
+	place-items: center;
+}
+.singleRankLetters{
+	font-size: 42px;
+	display: inline-block;
+}
+.singleRankHashTag{
+	font-size: 28px;
+	display: inline-block;
+}
+.singleHr{
+	height: 2px;
+	width: 200px;
+}
+.singleRankChangesDisplayer{
+	display: inline-flex;
+	flex-direction: row;
+	font-size: 18px;
+	border-radius: 5px;
+	padding: 5px 15px;
+	margin: 5px 0px;
+	background: var(--single-rank-delta-background-color);
+}
+.singleRankChangesDisplayer > span{
+	display: inline-block;
+	padding: 0px 10px;
+	text-align: center;
+}
+.singleRankChangesDisplayer > i{
+	width: 20px;
+	text-align: center;
+	font-size: 16px;
+	padding-top: 3px;
+}
+.loadingInterface{
+	transition: 0.2s;
+	position: absolute;
+	z-index: 99;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	place-items: center;
+	background:var(--loading-interface-background-color);
+}
+.loadingInterface > div{
+	text-align: center;
+}
+.loadingInterface > i, .loadingInterface > div:first-child > i{
+	display: block;
+	transition: 0.5s;
+	font-size: 72px;
+	max-height: 72px;
+}
+.popTip{
+	transition: 0.5s;
+	opacity: 1;
+	max-height: 24px;
+	font-size: 24px;
+	margin: 20px;
+}
+.popTip.small{
+	max-height: 18px;
+	font-size: 18px;
+	margin: 15px;
+}
+.popTip.closed{
+	opacity: 0;
+	max-height: 0px;
+}
+img[src=""],img:not([src]){opacity:0;}
+#singleRankGraphContainer, #singleRankGraphContainerMini{
+	position: relative;
+}
+.singleContestProgressBackground{
+	transition: 0.2s;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 100%;
+	border-radius: 3px;
+	background: var(--single-progress-bar-color);
+}
+.singleContestProgressInfo{
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow-x: hidden;
+	z-index: 3;
+}
+.singleContestProgressPart{
+	position: absolute;
+	top: 0px;
+	width: 5px;
+	height: 100%;
+	left: 0px;
+	transform: translate(-50%, 0%);
+}
+.singleContestProgressPart:hover{
+	width: 10px;
+	z-index: 4;
+}
+.singleContestPoptip{
+	display: grid;
+	place-items: center;
+	transition: 0.2s;
+	position: absolute;
+	width: 50%;
+	height: 30px;
+	border-radius: 3px;
+	top: -40px;
+	left: 15%;
+	z-index: 2;
+	opacity: 1;
+	background: var(--single-progress-bar-poptip-background-color);
+}
+.singleContestPoptip.closed{
+	top: -10px;
+	opacity: 0;
+}
+.singleContestPoptipTail{
+	transition: 0.2s;
+    content: '';
+    width: 0;
+    height: 0;
+    border: 10px solid;
+    position: absolute;
+    bottom: -20px;
+    left: calc(50% - 10px);
+    border-color: var(--single-progress-bar-poptip-background-color) transparent transparent transparent;
+}
+.singleContestProgressInner > *{
+	display: inline-block;
+	font-size: 16px;
+	text-align: center;
+}
+.singlePoptipIndex{
+	width: 50px;
+}
+.singlePoptipVerdict{
+	width: 50px;
+}
+.singlePoptipTime, .singlePoptipMemory{
+	width: 80px;
+}
+.singlePoptipVerdictBlock, .singleProblemlistVerdictBlock{
+	display: inline-block;
+	border-radius: 5px;
+	padding: 0px 5px;
+}
+.singleProblemlistDisplayer{
+	position: relative;
+}
+.singleProblemlistlistDisplayGrid,
+.singleProblemlistDisplayList,
+.singleProblemlistDisplayEvent{
+	height: 100%;
+	overflow-y: scroll;
+}
+.singleProblemlistDisplayList{
+	padding-top: 2px;
+}
+.singleProblemlistlistDisplayGrid.closed,
+.singleProblemlistDisplayList.closed,
+.singleProblemlistDisplayEvent.closed{
+	height: 0px;
+	padding: 0px !important;
+}
+.singleProblemlistDisplayerGridItem{
+	position: relative;
+	padding: 3px 0px;
+	height: calc(25% - 20px - 10px);
+	width: calc(20% - 15px);
+	margin: 5px 7.5px;
+	display: inline-block;
+	border-radius: 5px;
+	margin-top: 12px;
+	padding-top: 15px;
+	text-align: center;
+	font-size: 16px;
+	background: var(--single-grid-mode-background-color);
+}
+.singleProblemlistDisplayerGridItem > div:last-child{
+	font-size: 13px;
+}
+.singleProblemlistDisplayerGridItemVerdict{
+	font-size: 15px;
+	font-weight: bold;
+}
+.singleProblemlistDisplayerGridItemIndex{
+	position: absolute;
+	top: 2px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border-radius: 5px;
+	padding: 0px 10px;
+	background: var(--single-grid-mode-index-background-color);
+}
+.singleProblemlistBottom{
+	width: 100%;
+	height: 24px;
+	border-bottom-right-radius: 5px;
+	display: flex;
+	flex-direction: row;
+	background: var(--single-problem-list-infobar-background-color);
+}
+.singleProblemlistBottom > div{
+	flex: 1;
+	text-align: center;
+	font-size: 16px;
+	padding: 2px 0px;
+}
+.singleProblemlistDisplayListItemInfo{
+	transition: 0.2s;
+	display: flex;
+	flex-direction: row;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	margin: 3px 10px 0px 10px;
+	padding: 3px 10px;
+	font-size: 15px;
+	width: calc(100% - 20px - 20px);
+	cursor: pointer;
+}
+.singleProblemlistDisplayListItemInfo, .singleProblemlistDisplayListItemStatus, .singleProblemlistDisplayEventItem{
+    background: var(--single-list-event-mode-block-background-color);
+}
+.singleProblemlistDisplayListItemInfo:hover, 
+.singleProblemlistDisplayListItemStatus:hover, 
+.singleProblemlistDisplayEventItem:hover{
+    background: var(--single-list-event-mode-block-hover-background-color);
+}
+.singleProblemlistDisplayListItemInfo > div{
+	text-align: center;
+}
+.singleProblemlistDisplayListItemInfoMessage{
+	width: 100%;
+}
+.singleProblemlistDisplayListItemInfoIndex{
+	width: 12%;
+}
+.singleProblemlistDisplayListItemInfoVerdict{
+	width: 38%;
+}
+.singleProblemlistDisplayListItemInfoTime{
+	width: 38%;
+}
+.singleProblemlistDisplayListItemInfoTimeLarge{
+	width: 34%;
+}
+.singleProblemlistDisplayListItemInfoTimeAttempt{
+	width: 12%;
+}
+.singleProblemlistDisplayListItemInfoVerdictBlock{
+	width: 16%;
+}
+.singleProblemlistDisplayEventItemInfoIndex,
+.singleProblemlistDisplayEventItemInfoTestType{
+	width: 20%;
+}
+.singleProblemlistDisplayListItemInfoRuntime,
+.singleProblemlistDisplayListItemInfoMemory{
+	width: 19%;
+}
+.singleProblemlistDisplayEventItemInfoDetailedTime{
+	width: 32%;
+}
+.singleProblemlistDisplayEventItemInfoVerdictBlock{
+	width: 32%;
+}
+.singleProblemlistDisplayListItemProgress{
+	width: calc(100% - 20px - 0px);
+	height: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	margin: 0px 10px 3px 10px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: row;
+	background: var(--single-list-mode-progress-bar-background-color);
+}
+.singleProblemlistDisplayListItemProgress > span{
+	display: inline-block;
+	height: 100%;
+}
+.singleProblemlistDisplayListItemProgress > span:first-child{
+	border-bottom-left-radius: 5px;
+}
+.singleProblemlistDisplayListItemProgress > span:last-child{
+	border-bottom-right-radius: 5px;
+}
+.singleProblemlistDisplayListItem.closed > .singleProblemlistDisplayListItemStatus{
+	display: none;
+	margin: 0px !important;
+}
+.singleProblemlistDisplayListItemStatus{
+	transition: 0.2s;
+	margin: 8px 10px;
+	border-radius: 5px;
+	width: calc(100% - 20px);
+	display: flex;
+	flex-direction: column;
+}
+.singleProblemlistDisplayListItemStatusInfo{
+	display: flex;
+	flex-direction: row;
+	padding: 3px 10px;
+	font-size: 14px;
+	width: calc(100% - 20px);
+	text-align: center;
+}
+.singleProblemlistDisplayEventItem{
+	transition: 0.2s;
+	display: flex;
+	flex-direction: row;
+	border-radius: 5px;
+	margin: 3px 10px 0px 10px;
+	padding: 3px 10px;
+	font-size: 15px;
+	width: calc(100% - 20px - 20px);
+	text-align: center;
+}
+[subLink='true']{
+	cursor: pointer;
+}
+.singleProblemlistTempSettings{
+	height: 58%;
+	position: relative;
+	margin: 10px;
+	font-size: 16px;
+}
+.singleContestMoreOption > div{
+	cursor: pointer;
+}
+.submissionDisplayer{
+	text-align: left !important;
+	font-size: 18px !important;
+	padding: 5px;
+	width: calc(100% - 10px);
+	height: calc(100% - 10px);
+}
+.submissionDisplayer > div{
+	padding: 5px 10px;
+	height: calc(100% - 10px);
+	width: calc(100% - 20px);
+}
+.eventDisplayer{
+	user-select: text;
+	text-align: left !important;
+	font-size: 16px !important;
+	padding: 5px;
+	border-radius: 5px;
+	height: calc(100% - 170px);
+	width: calc(100% - 210px);
+	position: relative;
+}
+.userInfoDisplayer{
+	user-select: text;
+	text-align: left !important;
+	font-size: 16px !important;
+	padding: 5px;
+	border-radius: 5px;
+	height: calc(100% - 440px);
+	width: calc(100% - 450px);
+	position: relative;
+}
+.submissionDisplayer > div:first-child > div:first-child,
+.submissionCodeDisplayer, .eventDisplayer, .userInfoDisplayer{
+    background: var(--pop-out-block-background-color);
+}
+.eventCloseButton, .userInfoCloseButton{
+    background: var(--pop-out-block-closer-background-color);
+}
+.eventCloseButton:hover, .userInfoCloseButton:hover{
+    background: var(--pop-out-block-closer-hover-background-color);
+}
+.eventCloseButton, .userInfoCloseButton{
+	position: absolute;
+	right: 15px;
+	top: 10px;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	transition: 0.2s;
+	cursor: pointer;
+	display: grid;
+	place-items: center;
+	font-size: 20px;
+}
+.eventList > p{
+	margin: 5px;
+}
+pre code{
+	border-radius: 5px;
+	display: block;
+	overflow: scroll;
+	height: calc(100% - 10px);
+	width: calc(100% - 10px);
+	padding: 5px !important;
+	-webkit-app-region: no-drag;
+	user-select: text;
+	tab-size: 4;
+	font-family: var(--editor-font-family);
+	font-size: var(--editor-font-size);
+}
+.submissionDisplayer > div:first-child > div:first-child{
+   	padding:  5px 10px;
+   	border-radius: 5px;
+}
+.submissionCodeDisplayer{
+	padding: 5px;
+	margin: 10px 0px;
+	border-radius: 5px;
+	flex:  1;
+	position: relative;
+	overflow: hidden;
+}
+.submissionCode{
+	-webkit-app-region: no-drag;
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+	margin: 0px;
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+pre{
+	font-family: inherit !important;
+}
+.submissionCloser, .submissionDataLister, .submissionCodeLister{
+	cursor: pointer;
+}
+
+/* MULTI */
+.multiInfoDisplayer{
+	width: 100%;
+	height: 100%;
+	flex: 1;
+	position: relative;
+	overflow: auto;
+}
+.multiSettingsBar{
+	height: 105px;
+	width: 100%;
+}
+.multiInfoTable{
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: calc(100% - 1px);
+	font-size: 16px;
+}
+.multiInfoTbody > tr > td{
+	border: 1px solid grey;
+	user-select: text;
+	padding: 3px;
+	text-align: center;
+}
+.multiTableUser{
+	text-align: left !important;
+	padding-left: 5px !important;
+}
+.multiSmall{
+	display: block;
+	font-size: 13px;
+}
+.multiInfoThead{
+	display: table-header-group;
+}
+.multiFetchTypeSelect > div.chosen{
+	flex: 1 !important;
+}
+.multiFetchTypeSelect > div.chosen .multiTypeChosenList .info{
+	display: inline-block;
+}
+.multiFetchTypeSelect > div{
+	width: 54px !important;
+}
+.multiTypeChosenList{
+	cursor: pointer;
+	position: relative;
+	padding: 10px 9px;
+	width: calc(100% - 18px);
+	height: calc(100% - 20px);
+	display: flex;
+}
+.multiTypeChosenList .info{
+	flex: 1;
+	font-size: 20px;
+	height: 100%;
+	display: none;
+	text-align: center;
+}
+.multiTypeChosenList > i{
+	font-size: 24px;
+	text-align: center;
+	width: 30px;
+}
+.multiPagePrev, .multiPageNext{
+	cursor: pointer;
+	position: relative;
+	transition: 0.2s;
+	margin: 2px;
+	width: 35px;
+	height: 26px;
+	border-radius: 5px;
+	font-size: 20px;
+	display: grid;
+	place-items: center;
+}
+.multiPageSelecter{
+	display: flex;
+	flex-direction: row;
+	font-size: 20px;
+	align-items: center;
+}
+.multiPageSelecter > .number{
+	cursor: pointer;
+	position: relative;
+	transition: 0.2s;
+	margin: 2px;
+	height: 26px;
+	padding: 0px 5px;
+	border-radius: 5px;
+	font-size: 20px;
+	display: grid;
+	place-items: center;
+}
+.multiUnofficialSelecter{
+	display: flex;
+	flex-direction: row;
+	overflow: hidden;
+	border-radius: 5px;
+	margin-left: 10px;
+}
+.multiUnofficialSelecter > span{
+	cursor: pointer;
+	position: relative;
+	transition: 0.2s;
+	height: 30px;
+	width: 55px;
+	font-size: 20px;
+	font-size: 18px;
+	display: grid;
+	place-items: center;
+}
+
+/* MODULES */
+.modulesPage{
+	padding: 0px 50px;
+	overflow-y: scroll;
+	width: calc(100% - 100px);
+	position: relative;
+	height: 100%;
+}
+.modulesBlock{
+	padding: 10px;
+	width: calc(100% - 20px);
+	height: 90px;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: row;
+	margin: 25px 0px;
+}
+.modulesTitle{
+	font-size: 20px;
+}
+.modulesDesc{
+	font-size: 16px;
+	color: #777;
+}
+
+/* SETTINGS */
+.settingPage{
+	padding: 0px 50px;
+	overflow-y: scroll;
+	width: calc(100% - 100px);
+	position: relative;
+	height: 100%;
+}
+.settingsHeader{
+	font-weight: bold;
+	font-size: 28px;
+	margin-bottom: 15px;
+	margin-top: 30px;
+}
+.settingsUI{
+	margin: 20px 0px !important;
+}
+.settingsRadio,
+.settingsSelect,
+.settingsSelectBig,
+.settingsInput{
+	width: 100%;
+	position: relative;
+	margin: 10px 0px;
+}
+.settingsRadioInfo,
+.settingsSelectInfo,
+.settingsSelectBigInfo,
+.settingsInputInfo{
+	width: calc(100% - 0px);
+	word-wrap: break-word; word-break: keep-all;
+}
+.settingsRadioInfoMain,
+.settingsSelectInfoMain,
+.settingsSelectBigInfoMain,
+.settingsInputInfoMain{
+	font-size: 20px;
+	margin: 6px 0px;
+}
+.settingsRadioInfoAddition,
+.settingsSelectInfoAddition,
+.settingsSelectBigInfoAddition,
+.settingsInputInfoAddition,
+.pageSmallTip{
+	font-size: 16px;
+}
+.settingsRadioButton{
+	cursor: pointer;
+	font-size: 30px;
+	position: absolute;
+	width: 30px;
+	right: 0px;
+	top: 0px;
+}
+.settingsRadioButton > i{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	transition: 0.2s;
+}
+.settingsRadioButton > i:last-child{
+	opacity: 0;
+}
+.settingsRadio.selected > .settingsRadioButton > i:last-child{
+	opacity: 1;
+}
+.settingsSelectPart{
+	display: flex;
+	flex-direction: row;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+.settingsSelectPart > div,
+.settingsSelectBigPart > div{
+	display: inline-grid;
+	place-items: center;
+	border-radius: 5px;
+	width: 120px;
+	font-size: 16px;
+	height: 30px;
+}
+.settingsSelectPart > div:first-child, .settingsSelectPart > div:last-child,
+.settingsSelectBigPart > div:first-child, .settingsSelectBigPart > div:last-child{
+	transition: 0.2s;
+	font-size: 24px;
+	width: 30px !important;
+	cursor: pointer;
+}
+.settingsInputPartContent{
+	transition: 0.2s;
+	font-size: 30px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	height: 20px;
+	width: 180px;
+	border-radius: 0px;
+	padding: 5px 0px;
+	font-family: var(--font-family);
+	font-size: 16px;
+	text-align: center;
+}
+.settingsInputPartContent:focus{
+	width: calc(100% + 5px);
+}
+.settingsSetAsDefault, .settingsOpenProblems{
+	cursor: pointer;
+	font-size: 16px;
+}
+[info=settingsLoginButton]{
+	cursor: pointer;
+}
+.settingsLoginButton{
+	transition: 0.2s;
+	text-align: center;
+}
+.settingsSelectBigPart{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+.settingsSelectBigPartContent{
+	flex: 1;
+}
+.settingsSelectBigPartContent{
+	margin-top: 10px;
+	transition: 0.2s;
+	border: none;
+	width: 100%;
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+}
+.settingsReloadLanguages{
+	color: inherit !important;
+	text-align: center;
+}
+[info=reloadLanguages]{
+	cursor: pointer;
+}
+.settingsInfoIcon{
+	display: inline-block;
+	width: 30px;
+	text-align: center;
+}
+.settingsRadioInfoAddition, .settingsSelectInfoAddition, .settingsSelectBigInfoAddition, .settingsInputInfoAddition, .pageSmallTip{
+    color: var(--settings-comment-color);
+}
+.settingsSelectPart > div:first-child:hover, .settingsSelectPart > div:last-child:hover,
+.settingsSelectBigPart > div:first-child:hover, .settingsSelectBigPart > div:last-child:hover{
+    background: var(--settings-select-button-hover-background-color);
+}
+.settingsSelectPartLeft.closed, .settingsSelectPartRight.closed,
+.settingsSelectBigPartLeft.closed, .settingsSelectBigPartRight.closed{
+    color: var(--settings-unclickable-button-color);
+    cursor: default;
+}
+.settingsInputPartContent{
+    background: var(--settings-input-background);
+    border: 0;
+    border-bottom: 1px solid var(--settings-input-border-bottom-color);
+    color: var(--major-font-color);
+    outline: none;
+}
+.settingsLoginButton, .settingsLoginType{
+	color: var(--major-font-color);
+}
+.settingsSelectBigPartContent{
+	background: var(--settings-select-background-color);
+}
+
+
+/* SEARCH */
+
+.searchPage{
+	padding: 10px 0px;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+.searchPageTop{
+	padding: 10px;
+	width: calc(100% - 20px);
+	display: flex;
+	flex-direction: row;
+}
+.searchArgumentsChoser{
+	display: inline-flex;
+	flex-direction: row;
+	height: 34px;
+	margin: 2px;
+	padding: 8px;
+	border-radius: 5px;
+}
+.searchArgumentsItem{
+	width: 34px;
+	height: 34px;
+	font-size: 20px;
+	position: relative;
+	border-radius: 50%;
+	margin: 0px 10px;
+	cursor: pointer;
+	transition: 0.2s;
+}
+.searchArgumentsItem > span{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.searchPageBottom{
+	flex: 1;
+	width: 100%;
+	overflow-y: scroll;
+}
+.searchPageTip{
+	height: 40px;
+	padding-top: 5px;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+.searchPageTip > div:first-child, .searchPageTip > div:last-child{
+	margin: 5px 10px;
+	font-size: 16px;
+}
+.searchPagePagesDisplayer{
+	display: flex;
+	flex-direction: row;
+}
+.searchPagesButton{
+	cursor: pointer;
+	position: relative;
+	transition: 0.2s;
+	margin: 2px;
+	width: 35px;
+	height: 26px;
+	border-radius: 5px;
+	font-size: 20px;
+}
+.searchPagesButton>span{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+.searchPageCurrentPage{
+	display: inline-block;
+	margin: 3px 0px 3px 10px;
+	font-size: 18px;
+}
+.searchPageOverallPage{
+	margin: 3px 10px 3px 0px;
+	font-size: 18px;
+}
+
+/* CONTEST */
+
+.contestInfoCard{
+	display: flex;
+	flex-direction: column;
+	width: calc(100% - 20px - 5px);
+	overflow: hidden;
+	padding: 5px 10px;
+	transition: 0.2s;
+	border-left: 5px solid transparent;
+}
+.contestCardRealInfo{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	flex: 1;
+}
+.contestCardNameContainer{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	flex: 1;
+	margin-right: 15px;
+}
+.contestCardPassedCount{
+	font-size: 36px;
+	display: inline-block;
+}
+.contestCardOverallCount{
+	font-size: 20px;
+	display: inline-block;
+}
+.contestCardUACCount{
+	font-size: 12px;
+}
+.contestCardOverall{
+	text-align: right;
+	display: inline-block;
+}
+.contestCardName{
+	width: 100%;
+	font-size: 20px;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	list-style-type: none;
+}
+.contestCardTag{
+	text-decoration: underline;
+	display: inline-block;
+	margin-right: 10px;
+	font-size: 16px;
+}
+.contestCardTime{
+	margin-top: 5px;
+	font-size: 16px;
+}
+.contestCardTimeRunningType{
+	float: right;
+}
+.contestSecondPageInfo{
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	overflow: hidden;
+}
+.contestSecondPageProgress{
+	width: 100%;
+	height: 40px;
+	display: flex;
+	flex-direction: row;
+}
+
+
+
+
+/* PROBLEM */
+.profileSubmissionPoptip{
+	z-index: 3;
+	pointer-events: none;
+	transition: 0s;
+	position: absolute;
+	width: 170px;
+	height: 24px;
+	display: grid;
+	place-items: center;
+	border-radius: 3px;
+	z-index: 2;
+	opacity: 1;
+	top: 0px;
+	left: 0px;
+	background: var(--profile-page-poptip-background-color);
+}
+.profileSubmissionPoptip.closed{
+	opacity: 0;
+}
+.profileSubmissionPoptipTail{
+	pointer-events: none;
+    content: '';
+    width: 0;
+    height: 0;
+    border: 5px solid;
+    position: absolute;
+    bottom: -10px;
+    left: calc(50% - 5px);
+    border-color: var(--profile-page-poptip-background-color) transparent transparent transparent;
+}
+.probpageProblemMain{
+	flex: 1;
+	padding: 5px 10px;
+	border-radius: 5px;
+	width: calc(100% - 50px);
+	height: 20px;
+	overflow-y: auto;
+}
+.probpageProblemBlock{
+	width: calc(100% - 10px);
+	border: 3px 5px;
+	display: flex;
+	flex-direction: row;
+	font-size: 16px;
+	margin: 5px 0px;
+}
+.probpageProblemTags{
+	width: calc(100% - 10px);
+	text-align: right;
+	font-size: 16px;
+	margin: 5px 0px;
+}
+.probpageProblemTags > .probpageTagBox{
+	margin: 0px 3px !important;
+	font-size: 12px !important;
+}
+.probpageProblemSummary{
+	align-items: center;
+	padding: 5px 10px;
+	border-radius: 5px;
+	width: calc(100% - 50px);
+	height: 20px;
+	margin: 20px 10px;
+	margin-top: 10px;
+	display: flex;
+	flex-direction: row;
+}
+.probpageTagsBarContent:hover{
+	opacity: 0.7;
+}
+.probpageTagsDisplayer{
+	margin-top: 10px;
+	padding: 5px 10px;
+	border-radius: 5px;
+	width: calc(100% - 50px);
+	height: 100px;
+	overflow-y: auto;
+}
+.probpageTagBox{
+	display: inline-block;
+	margin: 3px;
+	padding: 3px 5px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.probpageSelectIf{
+	transition: 0.3s;
+	height: 20px;
+	width: 20px;
+	border-radius: 10px;
+	margin: 0px 3px;
+	cursor: pointer;
+	display: grid;
+	place-items: center;
+	font-size: 14px;
+}
+.probpageRatingGraph{
+	border-radius: 5px;
+	margin: 15px;
+	width: calc(100% - 50px);
+	padding: 10px;
+	height: 100px;
+	position: relative;
+}
+
+
+
+
+
+/* PROFILE */
+.profileSubmissionGraphSelector{
+	z-index: 1;
+	background: var(--profile-page-submission-graph-selection-background-color);
+	position: absolute;
+	height: 16px;
+	width: 16px;
+}
+.profileSubmissionGraph{
+	margin: 10px;
+	height: calc(7 * 16px + 40px);
+	width: calc(100% - 30px);
+	border-radius: 5px;
+	position: relative;
+}
+.profileSubmissionGraphSelection{
+	text-align: center;
+	margin: 10px;
+	width: calc(100% - 30px);
+	height: 35px;
+	border-radius: 5px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	overflow-x: scroll;
+	white-space: nowrap;
+}
+.profileSubmissionGraphSelectionBlock{
+	cursor: pointer;
+	display: inline-block;
+	margin: 0px 5px;
+	transition: 0.3s;
+	background: var(--profile-page-submittion-graph-choser-background-color);
+	padding: 3px 5px;
+	font-size: 14px;
+	border-radius: 5px;
+}
+.profileSubmissionGraphSelectionBlock:hover{
+	background: var(--profile-page-submittion-graph-choser-hover-background-color);
+}
+.profileSubmissionGraphSelectionBlock.selected{
+	background: var(--profile-page-submittion-graph-choser-chosen-background-color);
+}
+.profileSubmissionsList{
+	flex: 1;
+	overflow-y: auto;
+	width: calc(100% - 45px);
+	padding: 5px 10px;
+	border-radius: 5px;
+	padding-right: 5px;
+}
+.profileTagsBar{
+	width: calc(100% - 50px);
+	height: 10px;
+	border-radius: 5px;
+	margin: 20px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: row;
+	position: relative;
+}
+.profileProblemMain{
+	flex: 1;
+	padding: 5px 10px;
+	border-radius: 5px;
+	width: calc(100% - 50px);
+	height: 20px;
+	overflow-y: auto;
+}
+.profileProblemBlock, .profileSubmissionBlock{
+	width: calc(100% - 10px);
+	border: 3px 5px;
+	display: flex;
+	flex-direction: row;
+	font-size: 16px;
+	margin: 5px 0px;
+}
+.profileProblemTags{
+	width: calc(100% - 10px);
+	text-align: right;
+	font-size: 16px;
+	margin: 5px 0px;
+}
+.profileProblemTags > .profileTagBox{
+	margin: 0px 3px !important;
+	font-size: 12px !important;
+}
+.profileProblemSummary, .profileSubmissionsSummary{
+	align-items: center;
+	padding: 5px 10px;
+	border-radius: 5px;
+	width: calc(100% - 50px);
+	height: 20px;
+	margin: 20px 10px;
+	margin-top: 10px;
+	display: flex;
+	flex-direction: row;
+}
+.problemTagsBarContent{
+	height: 10px;
+	transition: 0.3s;
+}
+.problemTagsBarContent:hover{
+	opacity: 0.7;
+}
+.profileTagsDisplayer{
+	padding: 5px 10px;
+	border-radius: 5px;
+	width: calc(100% - 50px);
+	height: 100px;
+	overflow-y: auto;
+}
+.profileTagBox{
+	display: inline-block;
+	margin: 3px;
+	padding: 3px 5px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.profileSelectIf{
+	transition: 0.3s;
+	height: 20px;
+	width: 20px;
+	border-radius: 10px;
+	margin: 0px 3px;
+	cursor: pointer;
+	display: grid;
+	place-items: center;
+	font-size: 14px;
+}
+.profileRatingGraph{
+	border-radius: 5px;
+	margin: 15px;
+	width: calc(100% - 50px);
+	padding: 10px;
+	height: 100px;
+	position: relative;
+}
+.infoOptions .disabled, .userInfoOptions .disabled{
+	color: #777;
+}
+.infoBlock{
+	width: calc(100% - 40px);
+	margin: 10px 20px;
+	border-radius: 5px;
+	overflow: hidden;
+}
+.inputButtonSplitter{
+	display: flex;
+	flex-direction: row;
+	height: 50px;
+	width: calc(100% - 10px);
+	padding: 5px;
+	border-radius: 5px;
+	background: rgba(127, 127, 127, 0.4);
+	position: relative;
+}
+.inputButtonSplitterTitle{
+	position: absolute;
+	top: 0px;
+	height: 22px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: rgba(127, 127, 127, 1);
+	font-size: 16px;
+	padding: 0px 10px;
+	border-radius: 5px;
+}
+.inputButtonSplitter > input{
+	margin-top: 10px;
+	background: transparent;
+	width: calc(100% - 40px);
+	font-family: var(--font-family);
+	font-size: 20px;
+}
+.inputButtonSplitter > button{
+	margin-top: 10px;
+	cursor: pointer;
+	margin-left: 10px;
+	width: 40px;
+	transition: 0.2s;
+	height: 40px;
+	border-radius: 5px;
+	font-size: 20px;
+	display: grid;
+	place-items: center;
+	outline: 0;
+}
+
+
+.setInlineBlock{
+	display: inline-block;
+}
+.bigInputArea{
+	width: calc(100% - 57px);
+	padding: 3px 0px;
+	position: relative;
+}
+.bigInputArea>input{
+	width: 100%;
+	height: 40px;
+	padding: 3px 10px;
+	padding-left: 45px;
+	border-radius: 5px;
+	font-size: 20px;
+	font-family: var(--font-family);
+	transition: 0.2s;
+}
+.bigInputArea>i{
+	font-size: 24px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+}
+.bigInputArea>input:focus{
+    border-color: #2665a2;
+    outline: 0;
+}
+.bigButton{
+	cursor: pointer;
+	width: 100%;
+	margin: 5px 0px;
+	height: 40px;
+	border-radius: 5px;
+	font-size: 20px;
+	font-family: var(--font-family);
+	transition: 0.2s;
+}
+.bigButton:focus{
+	outline: 0;
+} 
+.bigButton>i{
+	width: 24px;
+	margin-right: 18px;
+}
+::-webkit-scrollbar{
+	width: 8px;
+	height: 8px;
+}
+::-webkit-scrollbar-thumb{
+	border-radius: 2px;
+}
+::-webkit-scrollbar-corner{
+	display: none;
+}
+::-webkit-scrollbar{
+	transition: 0.3s;
+}
+/* for block of numbers */
+.hljs-ln-numbers {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    text-align: right;
+    vertical-align: top;
+    padding-right: 10px !important;
+
+    /* your custom style here */
+}
+
+
+/* CSS */
+.submissionDataDetail{
+	user-select: text;
+}
+.submissionDataListItem{
+	cursor: pointer;
+	transition: 0.3s;
+}
+.submissionDataListItem:hover, .submissionDataListItem.selected{
+	background: var(--pop-out-block-background-color-1);
+}
+.searchPageTop, .searchPageTip{
+    background: var(--contest-info-bar-background-color);
+}
+.searchArgumentsChoser{
+    background: var(--contest-sort-block-background-color);
+}
+.searchArgumentsItem{
+    background: var(--contest-button-background-color);
+}
+.searchArgumentsItem.chosen{
+    background: var(--contest-button-chosen-background-color);
+}
+.searchPagesButton:hover
+, .multiPagePrev:hover, .multiPageNext:hover
+, .multiPageSelecter > .number:hover, .multiPageSelecter > .number.chosen
+, .multiUnofficialSelecter > span:hover, .multiUnofficialSelecter > span.chosen{
+    background: var(--contest-button-hover-background-color);
+}
+.contestInfoCard:hover{
+    border-left-color: var(--contest-list-selection-border-left-color);
+}
+.highlightedContestList{
+    background: var(--contest-list-highlighted-background-color);
+}
+.multiSettingsBar{
+    background: var(--multi-info-bar-background-color);
+}
+.multiOddLine{
+    background: var(--multi-list-highlighted-background-color);
+}
+.infoBlock{
+    background: var(--profile-page-block-background-color);
+}
+.infoBlockTitle{
+    background: var(--profile-page-block-title-background-color);
+}
+.modulesBlock{
+    background: var(--modules-block-background-color);
+}
+.profileTagsDisplayer, .profileRatingGraph, .profileProblemSummary, .profileProblemMain, .profileSubmissionGraph, .profileSubmissionsList, .profileSubmissionsSummary{
+    background: var(--problist-block-background-color);
+}
+.profileSelectIf:hover{
+    background: var(--problist-sort-button-hover-background-color);
+}
+.profileSelectIf.selected{
+    background: var(--problist-sort-button-selected-background-color);
+}
+.probpageTagsDisplayer, .probpageRatingGraph, .probpageProblemSummary, .probpageProblemMain{
+    background: var(--problist-block-background-color);
+}
+.probpageSelectIf:hover{
+    background: var(--problist-sort-button-hover-background-color);
+}
+.probpageSelectIf.selected{
+    background: var(--problist-sort-button-selected-background-color);
+}
+.infoChangeUsernameInterface, .contestInsertTimeInterface{
+    background: var(--pop-out-block-background-color);
+}
+.inputButtonSplitter > button{
+    border: 1px solid grey;
+    color: var(--major-font-color);
+}
+.inputButtonSplitter > input{
+    border: 0;
+    border-bottom: 1px solid grey;
+    color: var(--major-font-color);
+    outline: none;
+}
+.blockManager{
+    background: var(--single-block-background-color);
+}
+.blockManagerTitle{
+    background: var(--single-block-title-background-color);
+}
+.folderButton{
+    background: var(--single-block-expand-button-background-color);
+}
+.folderButton:hover{
+    background: var(--single-block-expand-hover-button-background-color);
+}
+
+
+.bigInputArea>input{
+    background: transparent;
+    border: 1px solid grey;
+    color: var(--major-font-color);
+}
+.bigButton{
+    background: transparent;
+    border: 1px solid grey;
+    color: var(--major-font-color);
+}
+::-webkit-scrollbar:hover{
+    background-color: var(--scroll-bar-hover-color);
+}
+::-webkit-scrollbar-thumb{
+    background-color: var(--scroll-bar-thumb-color);
+}
+.primaryColor{
+    background: var(--primary-color);
+    transition: 0.2s;
+    color: white;
+}
+.primaryColor:hover{
+    background: var(--primary-hover-color);
+}
+.dangerColor{
+    background: var(--danger-color);
+    transition: 0.2s;
+    color: white;
+}
+.dangerColor:hover{
+    background: var(--danger-hover-color);
+}
+.warningColor{
+    background: var(--warning-color);
+    transition: 0.2s;
+    color: white;
+}
+.warningColor:hover{
+    background: var(--warning-hover-color);
+}
+.successColor{
+    background: var(--success-color);
+    transition: 0.2s;
+    color: white;
+}
+.successColor:hover{
+    background: var(--success-hover-color);
+}
+.loadingColor{
+    background: var(--loading-color);
+    transition: 0.2s;
+    color: white;
+}
+.loadingColor:hover{
+    background: var(--loading-hover-color);
+}
+.red{
+    color: var(--red-font-color);
+}
+.green{
+    color: var(--green-font-color);
+}
+
+.user-legendary, .user-igramdmaster, .user-grandmaster {
+    color: var(--user-red-color);
+    font-weight: 600;
+}
+.user-legendary:first-letter{
+    color: var(--major-font-color);
+}
+.user-master, .user-imaster {
+    color: var(--user-orange-color);
+    font-weight: 600;
+}
+.user-cmaster {
+    color: var(--user-purple-color);
+    font-weight: 600;
+}
+.user-expert {
+    color: var(--user-blue-color);
+    font-weight: 600;
+}
+.user-specialist {
+    color: var(--user-cyan-color);
+    font-weight: 600;
+}
+.user-pupil {
+    color: var(--user-green-color);
+    font-weight: 600;
+}
+.user-newbie {
+    color: var(--user-grey-color);
+    font-weight: 600;
+}
+.user-unrated {
+    color: var(--major-font-color);
+}
+
+.highcharts-background{
+    background: var(--graphs-background-color) !important;
+}
+::selection { background: var(--selection-background-color); }  

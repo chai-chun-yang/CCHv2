@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script src="./js/jquery.min.js"></script>
+		<script src="./js/json3.min.js"></script>
+		<script src="./js/highcharts.js"></script>
+		<link rel="stylesheet" href="./css/client.css">
+		<link class="ThemeTypeIf" rel="stylesheet" href="./css/default.css">
+		<link rel="stylesheet" href="./css/all.min.css">
+		<script src="./js/highlight.min.js"></script>
+		<script src="./js/sha512.js"></script>
+		<script src="./js/highlightjs-line-numbers.js"></script>
+		<script src="./KaTeX/katex.min.js"></script>
+		<script src="./KaTeX/auto-render.min.js"></script>
+		<script>
+			var katex_config = {
+				delimiters: [
+					{left: "$$", right: "$$", display: true},
+					{left: "$", right: "$", display: false}
+				],
+				colorIsTextColor: true,
+			};
+		</script>
+		<title>Codeforces Contest Helper</title>
+		<script>
+			var RunInNwjs = true;
+			try{
+				var win = nw.Window.get();
+				setTimeout(function(){win.show();},300);
+			}
+			catch(error){
+				document.title = 'Codeforces Contest Helper (Website Mode)';
+				console.log('Switched to Website Mode');
+				RunInNwjs = false;
+			}
+			var DarkMode = false;
+			if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
+				if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+					DarkMode = true, $('.ThemeTypeIf').attr('href','./css/dark.css');
+				}
+			}
+		</script>
+		<style class="cssController"></style>
+		<style class="cssController2"></style>
+		<style class="cssController3"></style>
+		<style class="cssController4"></style>
+		<style class="cssController5"></style>
+	</head>
+	<body>
+		<div class="HtmlContainer">
+			<div class="ToolList">
+				<div class="ToolListTitle" info="title"></div>
+				<div style="position: absolute; top: 0px; right: 0px; display: flex; flex-direction: row">
+					<div class="ToolListButton ToolListMinimize">
+						<i class="fas fa-minus"></i>
+					</div>
+					<div class="ToolListButton ToolListClose">
+						<i class="fas fa-times"></i>
+					</div>
+				</div>
+			</div>
+			<div style="display: flex; flex-direction: row; position: relative; flex: 1">
+				<div class="loadingInterface submissionContainer" style="display: none; opacity: 0; z-index: 999">
+					<div><i></i><div class="popTip submissionCloser" info="tipClickToGoBack"></div></div>
+					<div style="display: none" class="submissionDisplayer">
+						<div style="display: flex; flex-direction: column; height: calc(100% - 10px)">
+							<div style="display: flex; flex-direction: column;">
+								<span><span class="submissionUsername">123</span> <i class="fas fa-angle-right"></i> <span class="submissionProblem">123A</span></span>
+								<span><span info="verdict"></span>: <span class="submissionVerdict">Accept</span> <i class="fas fa-external-link-square-alt jumpToSubmission" style="cursor: pointer"></i></span>
+								<div style="display: flex; flex-direction: row;">
+									<div style="width: 43%">
+										<i class="fas fa-sticky-note" style="margin-right: 5px;"></i><span info="language"></span>: <span class="submissionLanguage">GNU G++ 11</span>
+									</div><div style="width: 27%;">
+										<i class="fas fa-clock" style="margin-right: 5px;"></i><span info="time"></span>: <span class="submissionTime">1514ms</span>
+									</div><div style="width: 30%;">
+										<i class="fas fa-microchip" style="margin-right: 5px;"></i><span info="memory"></span>: <span class="submissionMemory">12.34GB</span>
+									</div>
+								</div>
+							</div>
+							<div class="submissionCodeDisplayer">
+								<pre class="submissionCode"><code></code></pre>
+							</div>
+							<div>
+								<span class="submissionCloser"><i class="fas fa-angle-left"></i> <span info='back'></span></span>
+								<span class="submissionDataLister" style="float: right">
+									<i class='fas fa-database'></i> <span info='showData'></span>
+								</span>
+							</div>
+						</div>
+						<div style="display: flex; flex-direction: column; height: calc(100% - 10px)">
+							<div style="flex: 1; display: flex; flex-direction: row; overflow: hidden;">
+								<div style="width: 200px; overflow-y: auto; margin-right: 10px; background: var(--pop-out-block-background-color); border-radius: 5px" class="submissionDataList"></div>
+								<div style="flex: 1; background: var(--pop-out-block-background-color); border-radius: 5px; overflow-y: auto;" class="submissionDataDetail"></div>
+							</div>
+							<div style="margin-top: 10px">
+								<span class="submissionCloser"><i class="fas fa-angle-left"></i> <span info='back'></span></span>
+								<span class="submissionCodeLister" style="float: right">
+									<i class='fas fa-code'></i> <span info='showCode'></span>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="loadingInterface eventContainer" style="display: none; opacity: 0; z-index: 990;">
+					<div class="eventDisplayer">
+						<div style="width: calc(100% - 40px); height: calc(100% - 20px); position: absolute; top: 0px; left: 0px; overflow-y: auto; padding: 10px 20px" class="eventList">
+
+						</div>
+						<div class="eventCloseButton">
+							<i class="fas fa-close red"></i>
+						</div>
+					</div>
+				</div>
+
+				<div class="loadingInterface userInfoContainer" style="display: none; opacity: 0; z-index: 990;">
+					<div class="userInfoDisplayer">
+						<div style="width: calc(100% - 40px); height: calc(100% - 20px); position: absolute; top: 0px; left: 0px; overflow-y: auto; text-align: center; padding: 10px 20px" class="userInfoList">
+							<div class="userInfoLoading" style="height: 100%; width: 100%; display: grid; place-items: center;">
+								<i class="fas fa-3x fa-sync-alt fa-spin"></i>
+							</div>
+							<div class="userInfoMain" style="display: none">
+								<img height="120" width="120" alt="User Avatar" style="border-radius: 60px;" class="userInfoAvatar"></img>
+								<div class="userInfoName" style="margin-bottom: 10px;"></div>
+								<div class="userInfoOptions" style="display: flex; flex-direction: row;">
+									<div style="flex: 1; text-align: center"><span style="cursor: pointer" info="userInfoOptionsProfile" class="userInfoProfile"></span></div>
+									<div style="margin: 0px 5px; width: 4px; height: 20px; background: #777; border-radius: 2px;"></div>
+									<div style="flex: 1; text-align: center"><span class="userInfoObserve disabled" style="cursor: pointer" info="userInfoOptionsObserve"></span></div>
+								</div>
+							</div>
+						</div>
+						<div class="userInfoCloseButton">
+							<i class="fas fa-close red"></i>
+						</div>
+					</div>
+				</div>
+
+				<div class="NavBar">
+					<div class="NavBarCurr"></div>
+					<div class="NavBarContent NavBarChosen" for="singleContent">
+						<div class="singleNav" style="text-align: center">
+							<i class="fas fa-user"></i><br/>
+							<div info="singleNav"></div>
+						</div>
+					</div>
+					<div class="NavBarContent" for="multiContent">
+						<div class="multiNav" style="text-align: center">
+							<i class="fas fa-list-ol"></i><br/>
+							<div info="multiNav"></div>
+						</div>
+					</div>
+					<div class="NavBarContent" for="contestContent">
+						<div class="contestNav" style="text-align: center">
+							<i class="fas fa-calendar"></i><br/>
+							<div info="contestNav"></div>
+						</div>
+					</div>
+					<div class="NavBarContent" for="questionContent">
+						<div class="questionNav" style="text-align: center">
+							<i class="fas fa-question-circle"></i><br/>
+							<div info="questionNav"></div>
+						</div>
+					</div>
+					<div class="NavBarContent" for="infoContent">
+						<div class="infoNav" style="text-align: center">
+							<i class="fas fa-address-card"></i><br/>
+							<div info="infoNav"></div>
+						</div>
+					</div>
+					<div class="NavBarContent" for="modulesContent">
+						<div class="modulesNav" style="text-align: center">
+							<i class="fas fa-puzzle-piece"></i><br/>
+							<div info="modulesNav"></div>
+						</div>
+					</div>
+					<div class="NavBarContent" for="settingContent">
+						<div class="settingNav" style="text-align: center">
+							<i class="fas fa-cogs"></i><br/>
+							<div info="settingNav"></div>
+						</div>
+					</div>
+				</div>
+				<div class="InnerContent" style="flex: 1;">
+					<div class="contentWrapper singleContent contentWrapperChosen">
+						<div class="contentRowInfo">
+							<div class="contentPage"> <div style="text-align: center;">
+								<div class="MajorTitle" info="singleTitle"></div>
+								<div class="singleContestTypeSelector">
+									<div class="singleContestant"> <div style="width: 100%; text-align: center; display: flex; flex-direction: column;">
+										<i class="fas fa-desktop"></i> <br/>
+										<span class="anglePointer">
+											<i class="fas fa-angle-right"></i> <span info="singleContestantPointer"></span> <i class="fas fa-angle-left"></i>
+										</span>
+										<div class="remainSinglePart">
+											<div class="bigInputArea">
+												<input class="singleContestantUsernameInput" info="singleContestantUsername"
+													type="text"/>
+												<i class="fa fa-user"></i>
+											</div>
+											<div class="bigInputArea">
+												<input class="singleContestantContestIdInput" info="singleContestantContestId"
+													type="text"/>
+												<i class="fa fa-calendar"></i>
+											</div>
+											<button class="bigButton primaryColor singleContestantButton">
+												<i class="fas fa-paper-plane"></i><span info="singleContestantButton"></span>
+											</button>
+										</div>
+									</div></div>
+									<div class="singleContestTypeDivider">
+										<div class="DividerLine"></div>
+										<span class="DividerContent" info="singleDivider"></span>
+										<div class="DividerLine"></div>
+									</div>
+									<div class="singleVirtual"> <div style="width: 100%; text-align: center; display: flex; flex-direction: column;">
+										<i class="fas fa-ghost"></i> <br/>
+										<span class="anglePointer">
+											<i class="fas fa-angle-right"></i> <span info="singleVirtualPointer"></span> <i class="fas fa-angle-left"></i>
+										</span>
+										<div class="remainSinglePart">
+											<div class="bigInputArea">
+												<input class="singleVirtualUsernameInput" info="singleVirtualUsername"
+													type="text"/>
+												<i class="fa fa-user"></i>
+											</div>
+											<div class="bigInputArea">
+												<input class="singleVirtualContestIdInput" info="singleVirtualContestId"
+													type="text"/>
+												<i class="fa fa-calendar"></i>
+											</div>
+											<div class="bigInputArea">
+												<input class="singleVirtualTimeInput" info="singleVirtualTime"
+													type="text"/>
+												<i class="fa fa-clock"></i>
+											</div>
+											<div class="pageSmallTip" info="tipVirtualTime"></div>
+											<button class="bigButton primaryColor singleVirtualButton">
+												<i class="fas fa-paper-plane"></i><span info="singleVirtualButton"></span>
+											</button>
+										</div>
+									</div></div>
+								</div>
+							</div></div>
+							<div class="contentPage">
+								<div class="loadingInterface" style="display: none; opacity: 0"><div><i class="fas fa-spin fa-sync-alt"></i></div></div>
+								<div style="display: flex; flex-direction: column;">
+									<div style="display: flex; flex-direction: row; padding-left: 10px">
+										<img alt="User Avatar" class="singleUserAvatar" />
+										<div style="flex: 1">
+											<div class="singleUsernameDisplayer user-legendary"></div>
+											<div class="singleRatingDisplayer">
+												<div class="user-legendary setInlineBlock"></div>
+												<div class="setInlineBlock"><div class="currRating user-legendary setInlineBlock"></div> ( max. <div class="maxRating user-legendary setInlineBlock"> </div> )</div>
+											</div>
+											<div class="singleContestInfoDisplayer">
+												<div class="singleContestTags">
+												</div>
+												<div class="singleContestName">
+												</div>
+											</div>
+											<div class="singleContestProgress">
+												<div class="singleContestProgressBarDisplayer">
+													<div class="singleContestProgressBackground">
+														
+													</div>
+													<div class="singleContestPoptip closed">
+														<div class="singleContestProgressInner">
+															<div class="singlePoptipIndex">1</div>
+															<div class="singlePoptipVerdict">
+																<div class="singlePoptipVerdictBlock">2</div>
+															</div>
+															<div class="singlePoptipTime">3</div>
+															<div class="singlePoptipMemory">4</div>
+														</div>
+														<div class="singleContestPoptipTail"></div>
+													</div>
+													<div class="singleContestProgressInfo">
+													</div>
+
+												</div>
+												<div class="singleContestProgressRatingChangesDisplayer">
+													<span></span>
+													<span></span>
+												</div>
+												<div class="singleContestMoreOption">
+													<div class="forceLoadStandings"><i class='fas fas fa-list-ol'></i> <span info='forceLoadStandings'></span></div>
+													<div class="openProblems"><span info='openProblems'></span></div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="singleMainDisplayer">
+										<div class="blockManager singleRankGraphDisplayer">
+											<div class="loadingInterface" style="display:none"><i class="fas fa-spin fa-sync-alt"></i></div>
+											<div class="blockManagerTitle"><i class="fas fa-list-ol"></i> <span info="Rank"></span><div class="folderButton singleRankButton"><i class="fas fa-angle-right"></i></div></div>
+											<div class="blockManagerContent">
+												<div class="blockManagerLeft">
+													<div style="height: 100%; display: flex; flex-direction: column">
+														<div class="singleRankInfoContainer">
+															<div style="text-align: center;">
+																<div class="singleRankNumberContainer">
+																	<div style="justify-content: end;">
+																		<div class="singleRankHashTag">#</div>
+																		<div class="singleRankLetters">1</div>
+																	</div>
+																	<div class="singleRankChangesDisplayer">
+																		<i class="fas fa-caret-up red"></i><br/>
+																		<span>1</span>
+																	</div>
+																	<div id="singleRankGraphContainerMini" style="width: 350px; height: 180px"></div>
+																</div>
+															</div>
+														</div>
+														<div class="singleParticipateTypeContainer">
+															<div><div class="selectButton selected" for="0"><span><i class="fas fa-user"></i> <span info="ratedRank"></span></span></div></div>
+															<div><div class="selectButton" for="1"><span><i class="fas fa-users"></i> <span info="unratedRank"></span></span></div></div>
+														</div>
+													</div>
+												</div><div class="blockManagerRight" id="singleRankGraphContainer">
+													
+												</div>
+											</div>
+										</div>
+										<div class="blockManager singleProblemDisplayer">
+											<div class="blockManagerTitle"><i class="fas fa-tasks"></i> <span info="Problem"></span></div>
+											<div class="blockManagerContent">
+												<div class="blockManagerRight singleProblemlistDisplayer">
+													<div class="singleProblemlistlistDisplayGrid closed">
+														<div class="singleProblemlistDisplayerGridItem">
+															<div class="singleProblemlistDisplayerGridItemIndex">A1</div>
+															<div class="singleProblemlistDisplayerGridItemVerdict green">+123</div>
+															<div>12:34</div>
+														</div>
+													</div>
+													<div class="singleProblemlistDisplayList">
+														<div class="singleProblemlistDisplayListItem">
+															<div class="singleProblemlistDisplayListItemInfo">
+																<div class="singleProblemlistDisplayListItemInfoIndex">A1</div>
+																<div class="singleProblemlistDisplayListItemInfoVerdict">123456</div>
+																<div class="singleProblemlistDisplayListItemInfoTime"><i class="fa fa-clock"></i> 12:34:56</div>
+																<div class="singleProblemlistDisplayListItemInfoTimeAttempt">#12</div>
+															</div>
+															<div class="singleProblemlistDisplayListItemProgress">
+																
+															</div>
+															<div class="singleProblemlistDisplayListItemStatus">
+																<div class="singleProblemlistDisplayListItemStatusInfo">
+																	<div class="singleProblemlistDisplayListItemInfoIndex">A1</div>
+																	<div class="singleProblemlistDisplayListItemInfoVerdictBlock">123456</div>
+																	<div class="singleProblemlistDisplayListItemInfoMemory">123456</div>
+																	<div class="singleProblemlistDisplayListItemInfoRuntime">123456</div>
+
+																	<div class="singleProblemlistDisplayListItemInfoTime"><i class="fa fa-clock"></i> 12:34:56</div>
+																</div>
+																<div class="singleProblemlistDisplayListItemStatusInfo">
+																	<div class="singleProblemlistDisplayListItemInfoIndex">A1</div>
+																	<div class="singleProblemlistDisplayListItemInfoVerdict">123456</div>
+																	<div class="singleProblemlistDisplayListItemInfoDetailedTime"><i class="fa fa-clock"></i> 12:34:56</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="singleProblemlistDisplayEvent closed">
+														<div class="singleProblemlistDisplayEventItem">
+															<div class="singleProblemlistDisplayEventItemInfoDetailedTime">12:12:34:56</div>
+															<div class="singleProblemlistDisplayEventItemInfoIndex">A1</div>
+															<div class="singleProblemlistDisplayEventItemInfoVerdictBlock">123456</div>
+															<div class="singleProblemlistDisplayEventItemInfoTestType">PRET</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="singleProblemlistTypeContainer">
+												<div><div class="selectButton" for="0"><span><i class="fas fa-check-square"></i> <span info="boxButton"></span></span></div></div>
+												<div><div class="selectButton selected" for="1"><span><i class="fas fa-clipboard-list"></i> <span info="listButton"></span></span></div></div>
+												<div><div class="selectButton" for="2"><span><i class="fas fa-book"></i> <span info="eventButton"></span></span></div></div>
+											</div>
+											<div class="singleProblemlistBottom"></div>
+										</div>
+									</div>
+									<div class="singleExtendSelection">
+										<div class="singleMemoryUsed"><span>0B</span></div>
+										<div class="singleHeadBack">
+											<div class="singleHeadBackProgress"></div><span><i class="fas fa-angle-left"></i> <span info="singleHeadBack"></span></span></div>
+										<div class="singleOpenSmallWindow"><span info="singleSmallWindow"></span> <i class="fas fa-angle-right"></i></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contentWrapper multiContent">
+						<div class="contentRowInfo"><div class="contentPage">
+							<div style="width: 100%; height: 100%; display: flex; flex-direction: column; overflow: hidden">
+								<div class="multiInfoDisplayer" style="width: 100%; height: 100%; position: relative;">
+									<table class="multiInfoTable">
+										<thead class="multiInfoThead">
+											
+										</thead>
+										<tbody class="multiInfoTbody">
+											
+										</tbody>
+									</table>
+									<div style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; display: grid; place-items: center; z-index: 999; text-align: center; background: inherit;" class="multiMask">
+										<div>
+											<i class='fas fa-exclamation-triangle fa-4x'></i>
+											<div class="popTip"><span info='multiNoUsers'></span></div>
+										</div>
+									</div>
+								</div>
+								<div class="multiSettingsBar">
+									<div class="multiSettingsUpperContent" style="padding: 3px 5px; display: flex; width: calc(100% - 10px)">
+										<div style="display: flex; width: 100%; flex-direction: row; align-items: center; padding-top: 5px">
+											<div style="text-align: left; flex: 1; padding-left: 5px; display: flex; flex-direction: row;">
+												<div class="multiPageSelecter">
+													<i class="fas fa-list-ol" style="padding-right: 10px"></i>
+													<span class="number">20</span>
+													<span class="number chosen">50</span>
+													<span class="number">100</span>
+													<span class="number">200</span>
+												</div>
+												<div class="multiUnofficialSelecter">
+													<span class="chosen"><i class="fas fa-user"></i></span>
+													<span><i class="fas fa-users"></i></span>
+												</div>
+											</div>
+											<div style="text-align: center; width: 250px; display: flex; flex-direction: row;">
+												<div style="flex: 1"></div>
+												<div class="multiPagePrev">
+													<i class="fas fa-angle-left"></i>
+												</div>
+												<div class="multiPageIndex" style="font-size: 20px; display: grid; place-items: center; padding-left: 10px; padding-right: 10px; width: 120px;">
+													<span class="multiPageIndexNumber" style="cursor: pointer" onclick="multiPageIndexClick()">
+														1
+													</span>
+												</div>
+												<div class="multiPageNext">
+													<i class="fas fa-angle-right"></i>
+												</div>
+												<div style="flex: 1"></div>
+											</div>
+											<div style="text-align: right; flex: 1;">
+												<div class="multiStatusBar" style="font-size: 18px; padding-right: 5px; color: grey">
+													<span info="multiStatus"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="multiSettingsLowerContent" style="padding: 3px 5px; display: flex; width: calc(100% - 10px)">
+										<div class="multiFetchTypeSelect" style="width: 270px; display: flex">
+											<div class="chosen">
+												<div style="width: calc(100% - 6px); height: calc(100% - 6px); padding: 3px 3px; position: relative;">
+													<div class="multiTypeChosenList warningColor" style="border-radius: 5px">
+														<i class="fas fa-globe"></i>
+														<div class="info" info="multiOverall"></div>
+													</div>
+												</div>
+											</div>
+											<div>
+												<div style="width: calc(100% - 6px); height: calc(100% - 6px); padding: 3px 3px; position: relative;">
+													<div class="multiTypeChosenList dangerColor" style="border-radius: 5px">
+														<i class="fas fa-heart"></i>
+														<div class="info" info="multiFriend"></div>
+													</div>
+												</div>
+											</div>
+											<div>
+												<div style="width: calc(100% - 6px); height: calc(100% - 6px); padding: 3px 3px; position: relative;">
+													<div class="multiTypeChosenList successColor" style="border-radius: 5px">
+														<i class="fas fa-house-user"></i>
+														<div class="info" info="multiRoom"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="multiContestSelect" style="width: 150px; margin-left: 3px;">
+											<div class="bigInputArea">
+												<input class="multiContestIdInput" info="multiContestIdInput" type="text" style="text-align: center">
+												<i class="fa fa-calendar"></i>
+											</div>
+										</div>
+										<div class="multiFetchInfoSelect" style="flex: 1; margin-left: 6px">
+											<div class="bigInputArea">
+												<input class="multiContestInfoInput" info="multiContestInfoInput0" type="text">
+												<i class="fa fa-circle-info"></i>
+											</div>
+										</div>
+										<div class="multiClicker" style="width: 54px">
+											<div style="padding: 3px; width: calc(100% - 6px); height: calc(100% - 6px); position: relative;">
+												<div class="primaryColor multiClickToFetch" style="border-radius: 5px; height: 100%;width: 100%; display: grid; place-items: center; cursor: pointer">
+													<i class="fas fa-paper-plane" style="font-size: 20px;"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div></div>
+						</div>
+					</div>
+					<div class="contentWrapper contestContent">
+						<div class="contentRowInfo">
+							<div class="contentPage">
+								<div class="loadingInterface contestInsertTimeWindow" style="display: none; opacity: 0"><div style="height: 90px; width: 450px; padding: 10px; border-radius: 5px; display: flex; flex-direction: column; overflow: hidden" class="contestInsertTimeInterface">
+									<div class="contestInsertTimeWindow" style="height: 30px; width: 100%; font-size: 16px;display: flex; flex-direction: row; overflow: hidden; position: relative;">
+										<div style="overflow: hidden; flex: 1;">
+											<span info="contestInsertTime" style="user-select: none"></span>
+										</div><div style="position: absolute; width: 24px; top: 0px; right: 0px;"><i class="fas fa-times red closeContestInsertTime" style="cursor: pointer"></i></div>
+									</div>
+									<div class="inputButtonSplitter contestInsertTimeInputArea">
+										<input info="contestTimeInput"></input>
+										<button class="primaryColor"><i class="fas fa-paper-plane"></i></button>
+									</div>
+								</div></div>
+								<div class="loadingInterface contestLoadingInterface" style="display: none; opacity: 0; z-index: 999">
+									<div>
+										<i class='fas fa-clock'></i>
+										<div class="popTip"><span info='flushContestList'></span></div>
+									</div>
+								</div>
+								<div class="searchPage contestSearch">
+									<div class="searchPageTop">
+										<div style="flex: 1">
+											<div class="bigInputArea contestListSearchArea">
+												<input class="contestSearchInput" info="search"
+													type="text"/>
+												<i class="fa fa-search"></i>
+											</div>
+										</div>
+										<div class="searchArgumentsChoser contestSortOption">
+											<div class="searchArgumentsItem chosen">
+												<span class="fas fa-clock"></span>
+											</div>
+											<div class="searchArgumentsItem">
+												<span class="fas fa-check green"></span>
+											</div>
+										</div>
+										<div class="searchArgumentsChoser contestDirectionOption">
+											<div class="searchArgumentsItem chosen">
+												<span class="fas fa-caret-down"></span>
+											</div>
+											<div class="searchArgumentsItem">
+												<span class="fas fa-caret-up"></span>
+											</div>
+										</div>
+									</div>
+									<div class="searchPageBottom">
+										<div class="contestInfoCard">
+											<div class="contestCardRealInfo">
+												<div class="contestCardNameContainer">
+													<div class="contestCardName">Codeforces Round balabalabalabalabalabalabalabalabalabala</div>
+													<div class="contestCardTags">
+														<span class="contestCardTag">#1234</span>
+														<span class="contestCardTag">Div. 1</span>
+													</div>
+												</div>
+												<div class="contestPassedCount">
+													<span class="contestCardPassedCount green">6</span>
+													<div class="contestCardOverall"><div class="contestCardUACCount red">123</div><div class="contestCardOverallCount">/10</div></div>
+												</div>
+											</div>
+											<div class="contestCardTime">
+												<span class="contestCardTimeSE"></span>
+												<span class="contestCardTimeRunningType">
+													<span class="red"><span class="fas fa-running"></span> Running</span>
+												</span>
+											</div>
+										</div>
+
+									</div>
+									<div class="searchPageTip">
+										<div style="flex: 1; text-align: left">
+											<div class="searchPageLoadingType contestListLoadIf"><span></span></div>
+										</div>
+										<div class="searchPagePagesDisplayer">
+											<div class="searchPagesButton">
+												<span class="fas fa-angle-double-left"></span>
+											</div>
+											<div class="searchPagesButton">
+												<span class="fas fa-angle-left"></span>
+											</div>
+											<div class="searchPageCurrentPage">1</div>
+											<div class="searchPageOverallPage">/1</div>
+											<div class="searchPagesButton">
+												<span class="fas fa-angle-right"></span>
+											</div>
+											<div class="searchPagesButton">
+												<span class="fas fa-angle-double-right"></span>
+											</div>
+										</div>
+										<div style="flex: 1; text-align: right">
+											<div class="contestListMatchedCount"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contentWrapper questionContent">
+						<div class="contentRowInfo">
+							<div class="contentPage" style="width: 920px; display: flex; flex-direction: column; text-align: center;">
+								<div class="probpageTagsDisplayer"></div>
+								<div class="probpageRatingGraph"></div>
+								<div class="probpageProblemMain">
+									<div class="probpageProblemBlock">
+										
+									</div>
+								</div>
+								<div class="probpageProblemSummary">
+									<span class="probpageLoader0" style="display: inline-block; margin-right: 10px; cursor: pointer; width: 50px; height: 100%; display: grid; place-items: center"><i class='fas fa-question'></i></span>
+									<span class="probpageLoader1" style="display: inline-block; margin-right: 10px; cursor: pointer; width: 50px; height: 100%; display: grid; place-items: center"><i class='fas fa-question'></i></span>
+									<span info="Difficulty"></span>
+									<input class="probpageDiffInput" info="minDiff" style="width: 50px; height: 100%; font-size: 14px; background: inherit; border: 0px; color: inherit; outline: 0; font-family: var(--font-family); text-align: center"></input>
+									<input class="probpageDiffInput" info="maxDiff" style="width: 50px; height: 100%; font-size: 14px; background: inherit; border: 0px; color: inherit; outline: 0; font-family: var(--font-family); text-align: center"></input>
+									<input class="probpageTagsInput" info="search" style="flex: 1; height: 100%; font-size: 14px; background: inherit; border: 0px; color: inherit; outline: 0; font-family: var(--font-family); text-align: center"></input>
+									<span class="probpageSelectIf probpagePageLeft"><i class='fas fa-angle-left'></i></span>
+									<span style="min-width: 50px; padding: 2px" class="probpageProblemPages"></span>
+									<span class="probpageSelectIf probpagePageRight"><i class='fas fa-angle-right'></i></span>
+									<span class="probpageSelectIf probpageTagsDisplayIf selected"><i class='fas fa-tags'></i></span>
+									<span class="probpageSelectIf probpageRatingDisplayIf selected"><i class='fas fa-star'></i></span>
+									<div style="margin: 0px 5px; width: 4px; height: 20px; background: #777; border-radius: 2px;"></div>
+									<span class="probpageSelectIf probpageSortId probpageSelectSortID selected"><i class='fas fa-hashtag'></i></span>
+									<span class="probpageSelectIf probpageSortId probpageSelectSortRating"><i class='fas fa-star'></i></span>
+									<span class="probpageSelectIf probpageSortId probpageSelectSortName"><i class='fas fa-sort-alpha-down'></i></span>
+									<span class="probpageSelectIf probpageSortId probpageSelectSortPassedCount"><i class='fas fa-user-check'></i></span>
+									<span class="probpageSelectIf probpageSelectSortDirection"><i class='fas fa-caret-down green'></i></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contentWrapper infoContent">
+						<div class="loadingInterface infoChangeUsernameWindow" style="display: none; opacity: 0"><div style="height: 90px; width: 450px; padding: 10px; border-radius: 5px; display: flex; flex-direction: column; overflow: hidden" class="infoChangeUsernameInterface">
+							<div class="infoChangeUsernameWindow" style="height: 30px; width: 100%; font-size: 16px;display: flex; flex-direction: row; overflow: hidden; position: relative;">
+								<div style="overflow: hidden; flex: 1;">
+									<span info="insertUsername" style="user-select: none"></span>
+								</div><div style="position: absolute; width: 24px; top: 0px; right: 0px;"><i class="fas fa-times red closeInfoChangeUsername" style="cursor: pointer"></i></div>
+							</div>
+							<div class="inputButtonSplitter infoChangeUsernameInputArea">
+								<input info="infoUsernameInput"></input>
+								<button class="primaryColor"><i class="fas fa-paper-plane"></i></button>
+							</div>
+						</div></div>
+						<div class="contentRowInfo" style="left: -920px">
+							<div class="contentPage" style="width: 920px; display: flex; flex-direction: column; text-align: center;">
+								<div class="profileTagsBar"></div>
+								<div class="profileTagsDisplayer"></div>
+								<div class="profileRatingGraph"></div>
+								<div class="profileProblemMain">
+									<div class="profileProblemBlock">
+										
+									</div>
+								</div>
+								<div class="profileProblemSummary">
+									<span info="Difficulty"></span>
+									<input class="profileDiffInput" info="minDiff" style="width: 50px; height: 100%; font-size: 14px; background: inherit; border: 0px; color: inherit; outline: 0; font-family: var(--font-family); text-align: center"></input>
+									<input class="profileDiffInput" info="maxDiff" style="width: 50px; height: 100%; font-size: 14px; background: inherit; border: 0px; color: inherit; outline: 0; font-family: var(--font-family); text-align: center"></input>
+									<input class="profileTagsInput" info="search" style="flex: 1; height: 100%; font-size: 14px; background: inherit; border: 0px; color: inherit; outline: 0; font-family: var(--font-family); text-align: center"></input>
+									<span class="profileSelectIf profilePageLeft"><i class='fas fa-angle-left'></i></span>
+									<span style="min-width: 50px; padding: 2px; text-align: center" class="profileProblemPages"></span>
+									<span class="profileSelectIf profilePageRight"><i class='fas fa-angle-right'></i></span>
+									<span class="profileSelectIf profileTagsDisplayIf selected"><i class='fas fa-tags'></i></span>
+									<span class="profileSelectIf profileRatingDisplayIf selected"><i class='fas fa-star'></i></span>
+									<div style="margin: 0px 5px; width: 4px; height: 20px; background: #777; border-radius: 2px;"></div>
+									<span class="profileSelectIf profileSortId profileSelectSortID selected"><i class='fas fa-hashtag'></i></span>
+									<span class="profileSelectIf profileSortId profileSelectSortRating"><i class='fas fa-star'></i></span>
+									<span class="profileSelectIf profileSortId profileSelectSortName"><i class='fas fa-sort-alpha-down'></i></span>
+									<span class="profileSelectIf profileSelectSortDirection"><i class='fas fa-caret-down green'></i></span>
+									<span class="profileGoBack" style="cursor: pointer; display: inline-block; margin-left: 6px"><span info="back"></span> <i class="fas fa-angle-right"></i></span>
+								</div>
+							</div>
+							<div class="contentPage" style="width: 920px; display: flex; flex-direction: column;">
+								<div class="infoBlock infoUserInfo" style="height: 200px; width: calc(100% - 40px); display: grid; place-items: center">
+									<div style="width: 100%">
+										<div style="display: flex; flex-direction: column; width: calc(100% - 20px); margin: 0px 10px; overflow: hidden; opacity: 0" class="infoUserBlock">
+											<div style="display: flex; flex-direction: row">
+												<img height="140" width="140" alt="User Avatar" class="infoUserAvatar" style="border-radius: 5px;">
+												<div style="flex: 1; margin-left: 10px">
+													<div class="infoSmallUserRanks" style="font-size: 14px;"></div>
+													<div class="infoUsername" style="font-size: 28px"></div>
+													<div class="infoUserInfos" style="display: flex; flex-direction: column; font-size: 16px;">
+														<div style="margin: 5px 0px" class="infoUserRanks">
+															<span info="infoRanks"></span>: <span class="infoUserRanksValue">?</span>
+														</div>
+														<div style="margin: 5px 0px" class="infoUserContribution">
+															<span info="infoContribution"></span>: <span class="infoUserContributionValue">?</span>
+														</div>
+														<div style="margin: 5px 0px" class="infoUserFriends">
+															<span info="infoFriends" argv='["?"]'></span> 
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="infoUserTimes" style="width: 100%; position: relative; font-size: 16px">
+												<div>?</div><div style="position: absolute; right: 0px; top: 0px">?</div>
+											</div>
+											<div class="infoUserTimesIndex" style="width: 100%; position: relative; font-size: 14px; color: grey">
+												<div info="registerTime"></div><div style="position: absolute; right: 0px; top: 0px" info="activeTime"></div>
+											</div>
+										</div>				
+									</div>
+								</div>
+								<div class="infoBlock infoRatingGraph" style="height: 250px;"><div class="infoGraphBlock" style="opacity: 0;">
+									<div style="font-size: 16px; height: 20px; width: calc(100% - 20px); padding: 5px 10px;" class="infoBlockTitle"><div info="infoContestTitle" argv='["?"]'></div></div>
+									<div id="infoRatingGraphContainer" style="width: 100%; height: 220px"></div>
+								</div></div>
+								<div class="infoBlock infoProblemStatus" style="display: flex; flex-direction: row; height: 85px;">
+									<div style="width: 20%; text-align: center; display: grid; place-items: center" class="infoProblemSubmitted"><div>
+										<span style="font-size: 36px;" class="red">-</span>
+										<div style="font-size: 14px; color: #777" info="infoProblemSubmitted"></div>
+									</div></div>
+									<div style="width: 20%; text-align: center; display: grid; place-items: center" class="infoProblemAccept"><div>
+										<span style="font-size: 36px;" class="green">-</span>
+										<div style="font-size: 14px; color: #777" info="infoProblemAccept"></div>
+									</div></div>
+									<div style="width: 30%; text-align: center; display: grid; place-items: center" class="infoProblemContestPP"><div>
+										<span style="font-size: 36px; font-weight: normal !important;" class="user-master">-</span>
+										<div style="font-size: 14px; color: #777" info="infoProblemContestPP"></div>
+									</div></div>
+									<div style="width: 30%; text-align: center; display: grid; place-items: center" class="infoProblemPracticePP"><div>
+										<span style="font-size: 36px; font-weight: normal !important;" class="user-expert">-</span>
+										<div style="font-size: 14px; color: #777" info="infoProblemPracticePP"></div></div>
+									</div>
+								</div>
+								<div class="infoOptions" style="margin: 0px 20px; width: calc(100% - 40px); display: flex; flex-direction: row; font-size: 16px;">
+									<div style="flex: 1; text-align: center"><span style="cursor: pointer" info="infoChangeUsername" class="inputOptionsUsername"></span></div>
+									<div style="margin: 0px 5px; width: 4px; height: 20px; background: #777; border-radius: 2px;"></div>
+									<div style="flex: 1; text-align: center"><span class="infoShowProblems disabled" style="cursor: pointer" info="infoShowProblems"></span></div>
+									<div style="margin: 0px 5px; width: 4px; height: 20px; background: #777; border-radius: 2px;"></div>
+									<div style="flex: 1; text-align: center"><span class="infoShowSubmissions disabled" style="cursor: pointer" info="infoShowSubmissions"></span></div>
+									<div style="margin: 0px 5px; width: 4px; height: 20px; background: #777; border-radius: 2px;"></div>
+									<div style="flex: 1; text-align: center; display: flex; flex-direction: row"><span class="infoLoaders0" title="user.info" style="flex: 1"><i class='fas fa-question'></i></span><span class="infoLoaders1" title="user.rating" style="flex: 1"><i class='fas fa-question'></i></span><span class="infoLoaders2" title="user.status" style="flex: 1"><i class='fas fa-question'></i></span></div>
+								</div>
+							</div>
+							<div class="contentPage" style="width: 920px; display: flex; flex-direction: column;">
+								<div class='profileSubmissionGraphSelection'></div>
+								<div class='profileSubmissionGraph'></div>
+								<div class='profileSubmissionsList'></div>
+								<div class='profileSubmissionsSummary'>
+									<span class="profileGoBack" style="cursor: pointer; display: inline-block; margin-left: 6px"><i class="fas fa-angle-left"></i> <span info="back"></span></span>
+									<input class="profileSubmissionsInput" info="search" style="flex: 1; height: 100%; font-size: 14px; background: inherit; border: 0px; color: inherit; outline: 0; font-family: var(--font-family); text-align: center"></input>
+									<span class="profileSelectIf profileSubmissionPageLeft"><i class='fas fa-angle-left'></i></span>
+									<span style="min-width: 50px; padding: 2px; text-align: center" class="profileProblemSubmissionPages"></span>
+									<span class="profileSelectIf profileSubmissionPageRight"><i class='fas fa-angle-right'></i></span>
+									<span class="profileSelectIf profileContestantOnlyIf selected"><i class='fas fa-calendar'></i></span>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="contentWrapper modulesContent">
+						<div class="contentRowInfo">
+							<div class="contentPage">
+								<div class="modulesPage"> <div style="margin: 20px 0px">
+									<div class="modulesBlock">
+										<div style="width: 72px; height: 100%; font-size: 48px; display: grid; place-items: center; margin-right: 10px">
+											<span class="fas fa-book"></span>
+										</div>
+										<div style="flex: 1; display: flex; flex-direction: column;">
+											<div class="modulesTitle" style="position: relative; margin-bottom: 5px">
+												<span info="modulesProblemPage"></span>
+												<div class="primaryColor" style="position: absolute; right: 0px; top: 0px; padding: 2px 6px; font-size: 15px; border-radius: 5px; cursor: pointer" info="modulesOpen" onclick="openProblemWin([])"></div>
+											</div>
+											<div class="modulesDesc">
+												<span info="modulesProblemPageDesc"></span>
+											</div>
+										</div>
+									</div>
+
+									<div class="modulesBlock">
+										<div style="width: 72px; height: 100%; font-size: 48px; display: grid; place-items: center; margin-right: 10px">
+											<span class="fas fa-chart-pie"></span>
+										</div>
+										<div style="flex: 1; display: flex; flex-direction: column;">
+											<div class="modulesTitle" style="position: relative; margin-bottom: 5px">
+												<span info="modulesSubmissionPage"></span>
+												<!-- <div class="primaryColor" style="position: absolute; right: 0px; top: 0px; padding: 2px 6px; font-size: 15px; border-radius: 5px; cursor: pointer" info="modulesOpen"></div> -->
+											</div>
+											<div class="modulesDesc">
+												<span info="modulesSubmissionPageDesc"></span>
+											</div>
+										</div>
+									</div>
+
+									<div class="modulesBlock">
+										<div style="width: 72px; height: 100%; font-size: 48px; display: grid; place-items: center; margin-right: 10px">
+											<span class="fas fa-comments"></span>
+										</div>
+										<div style="flex: 1; display: flex; flex-direction: column;">
+											<div class="modulesTitle" style="position: relative; margin-bottom: 5px">
+												<span info="modulesBlogViewer"></span>
+												<!-- <div class="primaryColor" style="position: absolute; right: 0px; top: 0px; padding: 2px 6px; font-size: 15px; border-radius: 5px; cursor: pointer" info="modulesOpen"></div> -->
+											</div>
+											<div class="modulesDesc">
+												<span info="modulesBlogViewerDesc"></span>
+											</div>
+										</div>
+									</div>
+
+									<div class="modulesBlock">
+										<div style="width: 72px; height: 100%; font-size: 48px; display: grid; place-items: center; margin-right: 10px">
+											<span class="fas fa-list-ol"></span>
+										</div>
+										<div style="flex: 1; display: flex; flex-direction: column;">
+											<div class="modulesTitle" style="position: relative; margin-bottom: 5px">
+												<span info="modulesScoreboard"></span>
+												<!-- <div class="primaryColor" style="position: absolute; right: 0px; top: 0px; padding: 2px 6px; font-size: 15px; border-radius: 5px; cursor: pointer" info="modulesOpen"></div> -->
+											</div>
+											<div class="modulesDesc">
+												<span info="modulesScoreboardDesc"></span>
+											</div>
+										</div>
+									</div>
+
+									<div class="modulesBlock">
+										<div style="width: 72px; height: 100%; font-size: 48px; display: grid; place-items: center; margin-right: 10px">
+											<span class="fas fa-user-secret"></span>
+										</div>
+										<div style="flex: 1; display: flex; flex-direction: column;">
+											<div class="modulesTitle" style="position: relative; margin-bottom: 5px">
+												<span info="modulesVirtualStandings"></span>
+												<!-- <div class="primaryColor" style="position: absolute; right: 0px; top: 0px; padding: 2px 6px; font-size: 15px; border-radius: 5px; cursor: pointer" info="modulesOpen"></div> -->
+											</div>
+											<div class="modulesDesc">
+												<span info="modulesVirtualStandingsDesc"></span>
+											</div>
+										</div>
+									</div>
+								</div></div>
+							</div>
+						</div>
+					</div>
+					<div class="contentWrapper settingContent">
+						<div class="contentRowInfo">
+							<div class="contentPage">
+								<div class="settingPage"> <div style="margin: 20px 0px">
+									<div class="settingsHeader" info="settingsAccount"></div>
+									<div class="settingsSelectInfoAddition" style="position: relative; height: 20px"><span class="settingsLoginType"></span><span info="redirectVerification" style="float: right; cursor: pointer" onclick="openCodeforcesPage()"></span></div>
+									<div class="settingsUI settingsInput" for="accountHandleOrEmail">
+										<div class="settingsInputInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsInputPart">
+											<input class="settingsInputPartContent"></input>
+										</div>
+									</div>
+									<div class="settingsUI settingsInput" for="accountPassword">
+										<div class="settingsInputInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsInputPart">
+											<input class="settingsInputPartContent" type="password"></input>
+										</div>
+									</div>
+									<div class="settingsSelectInfoAddition settingsLoginButton"><span info='settingsLoginButton' onclick="submitLogin()"></span></div>
+									<div class="settingsUI settingsRadio" for="useApiKeys">
+										<div class="settingsRadioInfo">
+											<div class="settingsRadioInfoMain">Radio Name</div>
+											<div class="settingsRadioInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsRadioButton">
+											<i class="far fa-square"></i>
+											<i class="fas fa-check-square"></i>
+										</div>
+									</div>
+									<div class="settingsUI settingsInput" for="apiKey">
+										<div class="settingsInputInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsInputPart">
+											<input class="settingsInputPartContent" type="password"></input>
+										</div>
+									</div>
+									<div class="settingsUI settingsInput" for="apiSecret">
+										<div class="settingsInputInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsInputPart">
+											<input class="settingsInputPartContent" type="password"></input>
+										</div>
+									</div>
+									<div class="settingsHeader" info="settingsPreference"></div>
+									<div class="settingsUI settingsSelect" for="styleSelection">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="language">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsInput" for="fontFamily">
+										<div class="settingsInputInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsInputPart">
+											<input class="settingsInputPartContent"></input>
+										</div>
+									</div>
+									<div class="settingsUI settingsInput" for="editorFontFamily">
+										<div class="settingsInputInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsInputPart">
+											<input class="settingsInputPartContent"></input>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="editorFontSize">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsInput" for="mainURL">
+										<div class="settingsInputInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsInputPart">
+											<input class="settingsInputPartContent"></input>
+										</div>
+									</div>
+									<div class="settingsUI settingsInput" for="codeforcesApiUrl">
+										<div class="settingsInputInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsInputPart">
+											<input class="settingsInputPartContent"></input>
+										</div>
+									</div>
+									<div class="settingsUI settingsInput" for="predictorURL">
+										<div class="settingsInputInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsInputPart">
+											<input class="settingsInputPartContent"></input>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="timeLimit">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="reloadTime">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="smallReloadTime">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsHeader" info="settingsSingle"></div>
+									<div class="settingsUI settingsRadio" for="openProblems">
+										<div class="settingsRadioInfo">
+											<div class="settingsRadioInfoMain">Radio Name</div>
+											<div class="settingsRadioInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsRadioButton">
+											<i class="far fa-square"></i>
+											<i class="fas fa-check-square"></i>
+										</div>
+									</div>
+									<div class="settingsUI settingsInput" for="transformPort">
+										<div class="settingsInputInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsInputPart">
+											<input class="settingsInputPartContent"></input>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="openStandings">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="standingsLoadingGap">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="openRankPredict">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsRadio" for="virtualFilter">
+										<div class="settingsRadioInfo">
+											<div class="settingsRadioInfoMain">Radio Name</div>
+											<div class="settingsRadioInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsRadioButton">
+											<i class="far fa-square"></i>
+											<i class="fas fa-check-square"></i>
+										</div>
+									</div>
+									<div class="settingsUI settingsRadio" for="showProblemStatus">
+										<div class="settingsRadioInfo">
+											<div class="settingsRadioInfoMain">Radio Name</div>
+											<div class="settingsRadioInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsRadioButton">
+											<i class="far fa-square"></i>
+											<i class="fas fa-check-square"></i>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="problemSubmissionDirection">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="problemEventDirection">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="headBackOption">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsRadio" for="openNotification">
+										<div class="settingsRadioInfo">
+											<div class="settingsRadioInfoMain">Radio Name</div>
+											<div class="settingsRadioInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsRadioButton">
+											<i class="far fa-square"></i>
+											<i class="fas fa-check-square"></i>
+										</div>
+									</div>
+									<div class="settingsHeader" info="settingsProblemPage"></div>
+									<div class="settingsUI settingsInput" for="statementFontFamily">
+										<div class="settingsInputInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsInputPart">
+											<input class="settingsInputPartContent"></input>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="statementFontSize">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelectBig" for="statementDefaultLanguage">
+										<div class="settingsSelectInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectBigPart">
+											<select class="settingsSelectBigPartContent"></select>
+										</div>
+									</div>
+									<div class="settingsSelectInfoAddition settingsReloadLanguages"><span info='reloadLanguages' onclick="reloadLanguages()"></span></div>
+									<!-- <div class="settingsUI settingsRadio" for="testRadio">
+										<div class="settingsRadioInfo">
+											<div class="settingsRadioInfoMain">Radio Name</div>
+											<div class="settingsRadioInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsRadioButton">
+											<i class="far fa-square"></i>
+											<i class="fas fa-check-square"></i>
+										</div>
+									</div>
+									<div class="settingsUI settingsSelect" for="testSelect">
+										<div class="settingsSelectInfo">
+											<div class="settingsSelectInfoMain">Radio Name</div>
+											<div class="settingsSelectInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsSelectPart">
+											<div class="settingsSelectPartLeft"><i class="fas fa-angle-left"></i></div>
+											<div class="settingsSelectPartContent"></div>
+											<div class="settingsSelectPartRight"><i class="fas fa-angle-right"></i></div>
+										</div>
+									</div>
+									<div class="settingsUI settingsInput" for="testInput">
+										<div class="settingsInputInfo">
+											<div class="settingsInputInfoMain">Radio Name</div>
+											<div class="settingsInputInfoAddition">Radio Addition</div>
+										</div>
+										<div class="settingsInputPart">
+											<input class="settingsInputPartContent"></input>
+										</div>
+									</div> -->
+									<div style="text-align: center; margin-top: 30px">
+										<span class="settingsSetAsDefault" onclick="setAsDefault()"><i class="fas fa-eraser"></i> <span info="setAsDefault"></span></span>
+									</div>
+								</div></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<footer>
+		<script>
+			if(!RunInNwjs){
+				if(!DarkMode)
+					$('body').css('background','#b7b7b7');
+				else
+					$('body').css('background','#484848');
+				$(".HtmlContainer").css('margin','0 auto');
+				$(".HtmlContainer").css('margin-top','20px');
+			}
+			else{
+				$(".ToolListClose").click(function(){
+					win.close();
+				});
+				$(".ToolListMinimize").click(function(){
+					win.minimize();
+				});
+			}
+		    var element =  document.documentElement;
+		    if(navigator.userAgent.indexOf("Chrome")>0){
+		    	element = document.body;
+		    }
+			if(DarkMode)
+				$('.ThemeButton').html('<span class="fa fa-moon"></span> ');
+			function ChangeTheme(){
+				if(!DarkMode){
+					$(".ThemeTypeIf").attr("href", "./css/dark.css");
+					if(!RunInNwjs)
+						$('body').css('background','#222');
+				}
+				else{
+					$(".ThemeTypeIf").attr("href", "./css/default.css");
+					if(!RunInNwjs)
+						$('body').css('background','#bbb');
+				}
+				DarkMode = !DarkMode;
+				profileDrawGraph(profileInfoDatas[4]);
+			}
+			if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
+				var listeners={
+				    dark: function(mediaQueryList ){
+				        if(mediaQueryList.matches && !DarkMode && (settings == undefined || settings.styleSelection == 0))
+				        	ChangeTheme();
+				    },
+				    light: function(mediaQueryList){
+				        if(mediaQueryList.matches && DarkMode && (settings == undefined || settings.styleSelection == 0))
+				        	ChangeTheme();
+				    }
+				}
+				window.matchMedia('(prefers-color-scheme: dark)').addListener(listeners.dark)
+				window.matchMedia('(prefers-color-scheme: light)').addListener(listeners.light)
+			}
+		</script>
+		<script src="./js/langs.js"></script>
+		<script src="./js/locale.js"></script>
+		<script src="./js/settings.js"></script>
+		<script src="./js/authorize.js"></script>
+		<script src="./js/submission.js"></script>
+		<script src="./js/client.js"></script>
+		<script src="./js/problem.js"></script>
+		<script src="./js/contest.js"></script>
+		<script src="./js/multi.js"></script>
+		<script src="./js/profile.js"></script>
+		<script src="./js/probpage.js"></script>
+		<script>
+			$(".NavBarContent").click(function(){
+				$(".contentWrapperChosen").removeClass("contentWrapperChosen");
+				$('.' + $(this).attr("for")).addClass("contentWrapperChosen");
+				$(".NavBarChosen").removeClass("NavBarChosen");
+				$(this).addClass("NavBarChosen");
+				$(".NavBarCurr").css("top", $(this).position().top);
+			});
+			$(".singleContestant > div").click(function(){
+				$(".singleTypeChosen").removeClass("singleTypeChosen");
+				$(this).parent().addClass("singleTypeChosen");
+				event.stopPropagation();
+			})
+			$(".singleVirtual > div").click(function(){
+				$(".singleTypeChosen").removeClass("singleTypeChosen");
+				$(this).parent().addClass("singleTypeChosen");
+				event.stopPropagation();
+			})
+			$(".singleContent > div > div > div").click(function(){
+				$(".singleTypeChosen").removeClass("singleTypeChosen");
+			})
+			initStyle();
+		</script>
+	</footer>
+</html>
